@@ -17,20 +17,43 @@ void CarlierScheduler::recCarlier()
 
 }
 
-/*
-int Scheduler::CarlierInit()
+void CarlierScheduler::findCritPath(int& a, int& b, int& c, SchrageScheduler& locSchrage)
 {
-	int Cmax = 0;
-	int upperBound;
+	// b - max j : Cmax = C(j) + q(j)
+	// a - min j : Cmax = r(j) + sum(k=j,b){p(k)} + q(b)
+	// c - max a<j<b : q(j) < q(b)
+	a = b = c = -1;
+#define loc_job(j) jobs[locSchrage.GetSchedule()[(j)]] // praca j-ta z rozk³adu obecnego wêz³a
 
-	Cmax = Schrage();
-	upperBound = Cmax;
+	int sumP, tempSumP = 0; 
+	for(int j = 0; j < locSchrage.GetSchedule().size(); j++)
+	{
+		tempSumP += loc_job(j)->p; // wyznaczamy b, a jednoczesnie sumê p od j = 0 do j = b, potrzebn¹ do a
+		if( locSchrage.GetCmax() == locSchrage.GetEndTimes()[j] +  loc_job(j)->q )
+		{
+			b = j;
+			sumP = tempSumP;
+		}
+	}
 
-	Cmax = Carlier(upperBound);
+	for(int j = 0; j < locSchrage.GetSchedule().size(); j++)
+	{
+		if( locSchrage.GetCmax() ==  loc_job(j)->r + sumP + loc_job(b)->q )
+		{
+			a = j;
+			break;
+		}
+		sumP -= loc_job(j)->p;
+	}
 
-	return Cmax;
+	for(int j = a; j <= b; j++)
+	{
+		if( loc_job(j)->q < loc_job(b)->q )
+			c = j;
+	}
 }
 
+/*
 int Scheduler::Carlier(int upperBound)
 {
 	vector<Job*> localSched;
@@ -65,15 +88,4 @@ int Scheduler::Carlier(int upperBound)
 		Carlier(upperBound);
 	schedule[c]->q = qc;
 }
-
-void Scheduler::find_abc(int& a, int& b, int& c, vector<Job*>& sched)
-{
-	// add Cmax to params
-	int Cmax;
-	vector<Job*> C;
-	a = b = c = -1;
-	for( int j = 0; j < sched.size(); j++ )
-	{
-		
-	}
-}*/
+*/

@@ -7,7 +7,7 @@ int SchrageScheduler::Schrage()
 {
 	// Inicjalizacja
 	int t = 0;
-	int Cmax = 0;
+	Cmax = 0;
 	schedule.clear();
 	readySet.clear();
 	endTimes.clear();

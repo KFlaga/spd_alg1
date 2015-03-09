@@ -12,7 +12,7 @@ class SchrageScheduler
 
 	std::list<Job*> sortedSet;
 	std::list<Job*> readySet;
-
+	int Cmax;
 public:
 	SchrageScheduler(void) { }
 
@@ -25,6 +25,7 @@ public:
 	std::vector<int>& GetSchedule() { return schedule; }
 	std::vector<int>& GetEndTimes() { return endTimes; }
 	std::vector<Job*>& GetJobs() { return jobs; }
+	int GetCmax() { return Cmax; }
 private:
 
 };

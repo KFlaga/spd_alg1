@@ -26,4 +26,6 @@ public:
 private:
 	void startCarlier();
 	void recCarlier();
+
+	void findCritPath(int& a, int& b, int& c, SchrageScheduler& locSchrage);
 };
