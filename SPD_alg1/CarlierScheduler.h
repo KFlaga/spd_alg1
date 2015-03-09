@@ -28,5 +28,5 @@ private:
 	void recCarlier();
 
 	void findCritParms(int& a, int& b, int& c, SchrageScheduler& locSchrage, int& r, int& p, int& q);
-int CarlierScheduler::findCritParms(SchrageScheduler& locSched);
+	int CarlierScheduler::findCritParms(SchrageScheduler& locSched);
 };

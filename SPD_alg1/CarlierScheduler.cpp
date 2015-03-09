@@ -13,15 +13,22 @@ int CarlierScheduler::Carlier()
 	return Cmax;
 }
 
+// mozna tez przemyslec sprawe z tworzeniem nowego Schrage dla kazdej rekurencji
+// choc chyba i tak osobny harmonogram dla kazdego wêz³a trzeba trzymaæ, to
+// tyle co siê czasu zaoszczêdzi, to tworzenie obiektu i przepisanie wektora zadañ
+// ale tak to trzebaby przepisywaæ wektor schedule i endTimes, tak wiêc nie widzê tu zysku
+// Straty pamiêci nie s¹ istotne dla kilkuset zadañ 
+// wiêc chyba jest taka struktura ok
 void CarlierScheduler::recCarlier()
 {
-	SchrageScheduler locSchrage;
-	locSchrage.SetJobs(jobs);
-	int bound = locSchrage.Schrage();
-	if(bound < globalUpperBound)
+	SchrageScheduler locSchrage; 
+	locSchrage.SetJobs(jobs);	 
+	int bound = locSchrage.Schrage(); 
+	if(bound < globalUpperBound)      
 	{
 		globalUpperBound = bound;
 		schedule.assign(locSchrage.GetSchedule().begin(), locSchrage.GetSchedule().end());
+		endTimes.assign(locSchrage.GetEndTimes().begin(), locSchrage.GetEndTimes().end());
 	}
 
 	int a,b,c;
@@ -32,7 +39,9 @@ void CarlierScheduler::recCarlier()
 
 	int rc = loc_job(c)->r ;
 	loc_job(c)->r = std::max(loc_job(c)->r,minR+sumP);
-	// LB is h((c+1,b)) for now
+	// LB is h((c+1,b)) for now -> tu mozna dac lepszy warunek: max(h(c,b),h(c+1,b),Cmax*)
+	// Cmax* = LB2 ze strony 145
+	// i ew. dodac dodatkowa heurystyke, jak na stronie 163 'eliminacja'
 	int lowerBound = minR + sumP + minQ;
 	if( lowerBound < globalUpperBound )
 		recCarlier();

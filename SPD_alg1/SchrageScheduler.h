@@ -7,11 +7,11 @@
 class SchrageScheduler
 {
 	std::vector<Job*> jobs;
-	std::vector<int> schedule;
-	std::vector<int> endTimes;
+	std::vector<int> schedule; // aka PI
+	std::vector<int> endTimes; // aka C
 
-	std::list<Job*> sortedSet;
-	std::list<Job*> readySet;
+	std::list<Job*> sortedSet; // aka N
+	std::list<Job*> readySet; // aka G
 	int Cmax;
 public:
 	SchrageScheduler(void) { }
