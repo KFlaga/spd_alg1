@@ -3,6 +3,7 @@
 #include <vector>
 #include "Job.h"
 #include "SchrageScheduler.h"
+#include "CarlierScheduler.h"
 
 using namespace std;
 
@@ -15,10 +16,16 @@ vector<Job*> schedule;
 
 int main()
 {
-	LoadData("in100.txt");
+	LoadData("in50.txt");
 	SchrageScheduler sched;
 	sched.SetJobs(jobs);
 	Cmax = sched.Schrage();
+	ShowResults();
+
+	cout<<"\n\nTeraz Carlier\n\n";
+	CarlierScheduler carlier;
+	carlier.SetJobs(jobs);
+	Cmax = carlier.Carlier();
 	ShowResults();
 
 	cin>>Cmax;

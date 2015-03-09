@@ -10,6 +10,7 @@ class CarlierScheduler
 	std::vector<int> endTimes; // best ones
 
 	int Cmax;
+	int globalUpperBound;
 public:
 	CarlierScheduler() { }
 
@@ -24,8 +25,8 @@ public:
 
 	int Carlier();
 private:
-	void startCarlier();
 	void recCarlier();
 
-	void findCritPath(int& a, int& b, int& c, SchrageScheduler& locSchrage);
+	void findCritParms(int& a, int& b, int& c, SchrageScheduler& locSchrage, int& r, int& p, int& q);
+int CarlierScheduler::findCritParms(SchrageScheduler& locSched);
 };
